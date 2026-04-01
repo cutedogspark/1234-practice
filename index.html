@@ -159,12 +159,14 @@ body {
 
 <div class="header">
   <h1>🧮 數學高手挑戰</h1>
-  <div class="subtitle">國小三～六年級數學練習</div>
+  <div class="subtitle">國小一～六年級數學練習</div>
 </div>
 
 <!-- 難度選擇 -->
 <div class="difficulty">
-  <button class="diff-btn active" data-level="g3">三年級</button>
+  <button class="diff-btn active" data-level="g1">一年級</button>
+  <button class="diff-btn" data-level="g2">二年級</button>
+  <button class="diff-btn" data-level="g3">三年級</button>
   <button class="diff-btn" data-level="g4">四年級</button>
   <button class="diff-btn" data-level="g5">五年級</button>
   <button class="diff-btn" data-level="g6">六年級</button>
@@ -218,7 +220,7 @@ body {
 <div class="streak" id="streak">🔥0</div>
 
 <script>
-let level = 'g3';
+let level = 'g1';
 let score = 0, total = 0, correct = 0, streak = 0, maxStreak = 0;
 let timer = 90, maxTime = 90, interval;
 let currentAnswer = 0;
@@ -250,6 +252,43 @@ function generateQuestion() {
   let a, b, op, answer, display;
 
   switch (level) {
+    case 'g1': {
+      // 一年級：10 以內加減法
+      const type = randItem(['+', '-']);
+      if (type === '+') {
+        a = rand(1, 9);
+        b = rand(1, 10 - a);
+        answer = a + b;
+        op = '+';
+      } else {
+        a = rand(2, 10);
+        b = rand(1, a);
+        answer = a - b;
+        op = '-';
+      }
+      break;
+    }
+    case 'g2': {
+      // 二年級：20 以內加減、簡單乘法（2, 5, 10 的倍數）
+      const type = randItem(['+', '+', '-', '-', '×']);
+      if (type === '×') {
+        a = randItem([2, 5, 10]);
+        b = rand(1, 9);
+        answer = a * b;
+        op = '×';
+      } else if (type === '+') {
+        a = rand(5, 50);
+        b = rand(5, 50);
+        answer = a + b;
+        op = '+';
+      } else {
+        a = rand(10, 50);
+        b = rand(1, a);
+        answer = a - b;
+        op = '-';
+      }
+      break;
+    }
     case 'g3': {
       // 三年級：兩位數加減、九九乘法
       const type = randItem(['+', '-', '×']);
@@ -494,7 +533,7 @@ function endGame() {
   const pct = total > 0 ? Math.round(correct / total * 100) : 0;
   const starCount = pct >= 90 ? 3 : pct >= 70 ? 2 : pct >= 50 ? 1 : 0;
 
-  const levelNames = { g3: '三年級', g4: '四年級', g5: '五年級', g6: '六年級' };
+  const levelNames = { g1: '一年級', g2: '二年級', g3: '三年級', g4: '四年級', g5: '五年級', g6: '六年級' };
 
   document.getElementById('stars').textContent = '⭐'.repeat(starCount) + '☆'.repeat(3 - starCount);
   document.getElementById('finalScore').textContent = score + ' 分';
