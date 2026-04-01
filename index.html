@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-<title>1234 數學練習</title>
+<title>數學高手挑戰</title>
 <style>
 * { margin: 0; padding: 0; box-sizing: border-box; }
 body {
@@ -20,29 +20,29 @@ body {
 /* ── 頂部資訊 ── */
 .header {
   text-align: center;
-  margin-bottom: 20px;
+  margin-bottom: 16px;
 }
-.header h1 { font-size: 2rem; text-shadow: 2px 2px 4px rgba(0,0,0,.3); }
-.header .subtitle { font-size: 0.9rem; opacity: .7; margin-top: 4px; }
+.header h1 { font-size: 1.8rem; text-shadow: 2px 2px 4px rgba(0,0,0,.3); }
+.header .subtitle { font-size: 0.85rem; opacity: .7; margin-top: 4px; }
 
 .stats {
-  display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;
-  margin-bottom: 20px;
+  display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;
+  margin-bottom: 16px;
 }
 .stat {
   background: rgba(255,255,255,.15); backdrop-filter: blur(10px);
-  padding: 8px 16px; border-radius: 12px; text-align: center; min-width: 70px;
+  padding: 6px 14px; border-radius: 12px; text-align: center; min-width: 65px;
 }
-.stat .num { font-size: 1.5rem; font-weight: 900; }
-.stat .label { font-size: .7rem; opacity: .7; }
+.stat .num { font-size: 1.4rem; font-weight: 900; }
+.stat .label { font-size: .65rem; opacity: .7; }
 
 /* ── 難度選擇 ── */
 .difficulty {
-  display: flex; gap: 8px; margin-bottom: 20px; flex-wrap: wrap; justify-content: center;
+  display: flex; gap: 6px; margin-bottom: 16px; flex-wrap: wrap; justify-content: center;
 }
 .diff-btn {
-  padding: 8px 20px; border-radius: 20px; border: 2px solid rgba(255,255,255,.4);
-  background: transparent; color: #fff; font-size: .9rem; font-weight: 700;
+  padding: 7px 14px; border-radius: 20px; border: 2px solid rgba(255,255,255,.4);
+  background: transparent; color: #fff; font-size: .8rem; font-weight: 700;
   cursor: pointer; transition: all .2s;
 }
 .diff-btn.active { background: #fff; color: #764ba2; border-color: #fff; }
@@ -50,12 +50,13 @@ body {
 /* ── 題目區 ── */
 .question-card {
   background: rgba(255,255,255,.95); color: #333; border-radius: 24px;
-  padding: 30px 20px; text-align: center; width: 100%; max-width: 400px;
+  padding: 28px 20px; text-align: center; width: 100%; max-width: 400px;
   box-shadow: 0 20px 60px rgba(0,0,0,.2);
-  margin-bottom: 20px;
+  margin-bottom: 16px;
 }
-.question { font-size: 2.5rem; font-weight: 900; color: #4a3580; margin-bottom: 20px; }
-.question .op { color: #e74c3c; margin: 0 8px; }
+.question { font-size: 2.2rem; font-weight: 900; color: #4a3580; margin-bottom: 16px; letter-spacing: 2px; }
+.question .op { color: #e74c3c; margin: 0 6px; }
+.hint { font-size: .85rem; color: #999; }
 
 /* ── 答案按鈕 ── */
 .answers {
@@ -63,8 +64,8 @@ body {
   width: 100%; max-width: 400px;
 }
 .ans-btn {
-  padding: 18px; border-radius: 16px; border: none;
-  font-size: 1.8rem; font-weight: 900; cursor: pointer;
+  padding: 16px; border-radius: 16px; border: none;
+  font-size: 1.6rem; font-weight: 900; cursor: pointer;
   background: rgba(255,255,255,.9); color: #4a3580;
   box-shadow: 0 4px 15px rgba(0,0,0,.15);
   transition: all .15s; position: relative;
@@ -117,46 +118,56 @@ body {
 
 /* ── 開始畫面 ── */
 .start-screen {
-  text-align: center; margin-top: 40px;
+  text-align: center; margin-top: 20px;
 }
 .start-btn {
-  padding: 16px 48px; border-radius: 30px; border: none;
-  background: #fff; color: #764ba2; font-size: 1.3rem; font-weight: 900;
+  padding: 14px 44px; border-radius: 30px; border: none;
+  background: #fff; color: #764ba2; font-size: 1.2rem; font-weight: 900;
   cursor: pointer; box-shadow: 0 8px 25px rgba(0,0,0,.2);
   transition: all .2s;
 }
 .start-btn:active { transform: scale(.95); }
 
-/* ── 計時器 ── */
-.timer {
-  font-size: 1rem; opacity: .8; margin-bottom: 4px;
+/* ── 計時條 ── */
+.timer-bar-wrap {
+  width: 100%; max-width: 400px; height: 8px;
+  background: rgba(255,255,255,.2); border-radius: 4px;
+  margin-bottom: 16px; overflow: hidden;
 }
+.timer-bar {
+  height: 100%; background: #2ecc71; border-radius: 4px;
+  transition: width 1s linear, background .5s;
+}
+.timer-bar.warning { background: #f39c12; }
+.timer-bar.danger { background: #e74c3c; }
 
 /* ── 結算畫面 ── */
 .result-screen {
   display: none; text-align: center;
   background: rgba(255,255,255,.95); color: #333; border-radius: 24px;
-  padding: 30px 20px; width: 100%; max-width: 400px;
+  padding: 28px 20px; width: 100%; max-width: 400px;
   box-shadow: 0 20px 60px rgba(0,0,0,.2);
 }
-.result-screen h2 { font-size: 1.8rem; color: #4a3580; margin-bottom: 16px; }
-.result-screen .big { font-size: 3rem; font-weight: 900; color: #27ae60; }
-.result-screen .detail { font-size: 1rem; color: #666; margin: 12px 0; line-height: 1.8; }
-.stars { font-size: 2.5rem; margin: 12px 0; }
+.result-screen h2 { font-size: 1.6rem; color: #4a3580; margin-bottom: 12px; }
+.result-screen .big { font-size: 2.8rem; font-weight: 900; color: #27ae60; }
+.result-screen .detail { font-size: .95rem; color: #666; margin: 12px 0; line-height: 1.8; }
+.stars { font-size: 2.5rem; margin: 10px 0; }
+.result-screen .record { font-size: .8rem; color: #e67e22; margin-top: 8px; }
 </style>
 </head>
 <body>
 
 <div class="header">
-  <h1>🔢 1234 數學練習</h1>
-  <div class="subtitle">用 1、2、3、4 練習加減乘除！</div>
+  <h1>🧮 數學高手挑戰</h1>
+  <div class="subtitle">國小三～六年級數學練習</div>
 </div>
 
 <!-- 難度選擇 -->
 <div class="difficulty">
-  <button class="diff-btn active" data-level="easy">😊 簡單</button>
-  <button class="diff-btn" data-level="medium">🤔 中等</button>
-  <button class="diff-btn" data-level="hard">🧠 困難</button>
+  <button class="diff-btn active" data-level="g3">三年級</button>
+  <button class="diff-btn" data-level="g4">四年級</button>
+  <button class="diff-btn" data-level="g5">五年級</button>
+  <button class="diff-btn" data-level="g6">六年級</button>
 </div>
 
 <!-- 統計 -->
@@ -164,13 +175,18 @@ body {
   <div class="stat"><div class="num" id="score">0</div><div class="label">得分</div></div>
   <div class="stat"><div class="num" id="total">0</div><div class="label">題數</div></div>
   <div class="stat"><div class="num" id="accuracy">-</div><div class="label">正確率</div></div>
-  <div class="stat"><div class="num" id="timerDisplay">60</div><div class="label">秒</div></div>
+  <div class="stat"><div class="num" id="timerDisplay">90</div><div class="label">秒</div></div>
+</div>
+
+<!-- 計時條 -->
+<div class="timer-bar-wrap" id="timerBarWrap" style="display:none;">
+  <div class="timer-bar" id="timerBar" style="width:100%"></div>
 </div>
 
 <!-- 題目 -->
 <div class="question-card" id="questionCard" style="display:none;">
   <div class="question" id="question"></div>
-  <div style="font-size:.9rem; color:#999;">選出正確答案</div>
+  <div class="hint" id="hint">選出正確答案</div>
 </div>
 
 <!-- 答案按鈕 -->
@@ -178,8 +194,10 @@ body {
 
 <!-- 開始畫面 -->
 <div class="start-screen" id="startScreen">
-  <p style="font-size:1.1rem; margin-bottom:20px; opacity:.8;">
-    60 秒內答對越多題越好！<br>連續答對有加分 🔥
+  <p style="font-size:1rem; margin-bottom:20px; opacity:.8; line-height:1.6;">
+    90 秒內答對越多題越好！<br>
+    連續答對有加分 🔥<br>
+    <span style="font-size:.85rem;">選擇你的年級開始挑戰吧！</span>
   </p>
   <button class="start-btn" onclick="startGame()">開始挑戰！ 🚀</button>
 </div>
@@ -190,7 +208,8 @@ body {
   <div class="stars" id="stars"></div>
   <div class="big" id="finalScore"></div>
   <div class="detail" id="resultDetail"></div>
-  <button class="start-btn" onclick="startGame()" style="margin-top:16px;">再玩一次 🔄</button>
+  <div class="record" id="recordMsg"></div>
+  <button class="start-btn" onclick="startGame()" style="margin-top:14px;">再玩一次 🔄</button>
 </div>
 
 <!-- 回饋 -->
@@ -199,18 +218,20 @@ body {
 <div class="streak" id="streak">🔥0</div>
 
 <script>
-const NUMS = [1, 2, 3, 4];
-let level = 'easy';
-let score = 0, total = 0, correct = 0, streak = 0, timer = 60, interval;
+let level = 'g3';
+let score = 0, total = 0, correct = 0, streak = 0, maxStreak = 0;
+let timer = 90, maxTime = 90, interval;
 let currentAnswer = 0;
 let canAnswer = true;
 
-// 難度設定
-const LEVELS = {
-  easy:   { ops: ['+', '-'], range: [1, 2, 3, 4], label: '加減' },
-  medium: { ops: ['+', '-', '×'], range: [1, 2, 3, 4], label: '加減乘' },
-  hard:   { ops: ['+', '-', '×', '÷'], range: [1, 2, 3, 4], label: '加減乘除' },
-};
+// 最高分紀錄（localStorage）
+function getRecord(lv) {
+  return parseInt(localStorage.getItem('mathpro_record_' + lv) || '0');
+}
+function setRecord(lv, s) {
+  if (s > getRecord(lv)) { localStorage.setItem('mathpro_record_' + lv, s); return true; }
+  return false;
+}
 
 // 難度按鈕
 document.querySelectorAll('.diff-btn').forEach(btn => {
@@ -221,52 +242,151 @@ document.querySelectorAll('.diff-btn').forEach(btn => {
   });
 });
 
-function rand(arr) { return arr[Math.floor(Math.random() * arr.length)]; }
+function rand(min, max) { return Math.floor(Math.random() * (max - min + 1)) + min; }
+function randItem(arr) { return arr[Math.floor(Math.random() * arr.length)]; }
 function shuffle(arr) { for (let i = arr.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [arr[i], arr[j]] = [arr[j], arr[i]]; } return arr; }
 
 function generateQuestion() {
-  const cfg = LEVELS[level];
-  let a, b, op, answer;
-  let attempts = 0;
+  let a, b, op, answer, display;
 
-  do {
-    a = rand(cfg.range);
-    b = rand(cfg.range);
-    op = rand(cfg.ops);
-
-    switch (op) {
-      case '+': answer = a + b; break;
-      case '-':
-        if (a < b) [a, b] = [b, a]; // 確保不會出現負數
-        answer = a - b; break;
-      case '×': answer = a * b; break;
-      case '÷':
-        // 確保整除
-        answer = a;
-        a = a * b;
-        break;
+  switch (level) {
+    case 'g3': {
+      // 三年級：兩位數加減、九九乘法
+      const type = randItem(['+', '-', '×']);
+      if (type === '×') {
+        a = rand(2, 9);
+        b = rand(2, 9);
+        answer = a * b;
+        op = '×';
+      } else if (type === '+') {
+        a = rand(10, 99);
+        b = rand(10, 99);
+        answer = a + b;
+        op = '+';
+      } else {
+        a = rand(20, 99);
+        b = rand(10, a);
+        answer = a - b;
+        op = '-';
+      }
+      break;
     }
-    attempts++;
-  } while (answer < 0 && attempts < 20);
+    case 'g4': {
+      // 四年級：三位數加減、兩位×一位、簡單除法
+      const type = randItem(['+', '-', '×', '÷']);
+      if (type === '+') {
+        a = rand(100, 999);
+        b = rand(100, 999);
+        answer = a + b;
+        op = '+';
+      } else if (type === '-') {
+        a = rand(200, 999);
+        b = rand(100, a);
+        answer = a - b;
+        op = '-';
+      } else if (type === '×') {
+        a = rand(11, 49);
+        b = rand(2, 9);
+        answer = a * b;
+        op = '×';
+      } else {
+        b = rand(2, 9);
+        answer = rand(3, 30);
+        a = answer * b;
+        op = '÷';
+      }
+      break;
+    }
+    case 'g5': {
+      // 五年級：大數加減、兩位×兩位、除法（含較大數）、混合
+      const type = randItem(['+', '-', '×', '÷', '×', '÷']);
+      if (type === '+') {
+        a = rand(500, 9999);
+        b = rand(500, 9999);
+        answer = a + b;
+        op = '+';
+      } else if (type === '-') {
+        a = rand(1000, 9999);
+        b = rand(100, a);
+        answer = a - b;
+        op = '-';
+      } else if (type === '×') {
+        a = rand(11, 99);
+        b = rand(11, 50);
+        answer = a * b;
+        op = '×';
+      } else {
+        b = rand(3, 20);
+        answer = rand(5, 50);
+        a = answer * b;
+        op = '÷';
+      }
+      break;
+    }
+    case 'g6': {
+      // 六年級：大數運算、三位×兩位、較難除法、含負數概念
+      const type = randItem(['+', '-', '×', '÷', '×', '÷']);
+      if (type === '+') {
+        a = rand(1000, 99999);
+        b = rand(1000, 99999);
+        answer = a + b;
+        op = '+';
+      } else if (type === '-') {
+        a = rand(5000, 99999);
+        b = rand(1000, a);
+        answer = a - b;
+        op = '-';
+      } else if (type === '×') {
+        a = rand(100, 500);
+        b = rand(11, 99);
+        answer = a * b;
+        op = '×';
+      } else {
+        b = rand(5, 50);
+        answer = rand(10, 200);
+        a = answer * b;
+        op = '÷';
+      }
+      break;
+    }
+  }
 
   currentAnswer = answer;
 
+  // 顯示題目（大數加千分位逗號）
+  const fmt = n => n >= 1000 ? n.toLocaleString() : n.toString();
+  document.getElementById('question').innerHTML =
+    `${fmt(a)} <span class="op">${op}</span> ${fmt(b)} = ?`;
+
   // 產生選項（1 正確 + 3 錯誤）
   const options = new Set([answer]);
-  while (options.size < 4) {
-    let wrong = answer + rand([-3, -2, -1, 1, 2, 3]);
+  let tries = 0;
+  while (options.size < 4 && tries < 100) {
+    tries++;
+    let offset;
+    if (answer <= 20) {
+      offset = randItem([-3, -2, -1, 1, 2, 3]);
+    } else if (answer <= 100) {
+      offset = randItem([-10, -5, -3, -1, 1, 3, 5, 10]);
+    } else if (answer <= 1000) {
+      offset = rand(-50, 50);
+      if (offset === 0) offset = rand(1, 20);
+    } else {
+      // 大數：產生有意義的干擾項（個位或十位不同）
+      const mag = Math.pow(10, Math.floor(Math.log10(answer)) - 1);
+      offset = randItem([-2, -1, 1, 2]) * Math.max(1, Math.floor(mag * Math.random()) + 1);
+      if (offset === 0) offset = rand(1, 100);
+    }
+    const wrong = answer + offset;
     if (wrong >= 0 && wrong !== answer) options.add(wrong);
   }
-
-  document.getElementById('question').innerHTML =
-    `${a} <span class="op">${op}</span> ${b} = ?`;
 
   const ansDiv = document.getElementById('answers');
   ansDiv.innerHTML = '';
   shuffle([...options]).forEach(opt => {
     const btn = document.createElement('button');
     btn.className = 'ans-btn';
-    btn.textContent = opt;
+    btn.textContent = fmt(opt);
     btn.addEventListener('click', () => checkAnswer(btn, opt));
     ansDiv.appendChild(btn);
   });
@@ -280,16 +400,18 @@ function checkAnswer(btn, selected) {
   if (selected === currentAnswer) {
     correct++;
     streak++;
+    if (streak > maxStreak) maxStreak = streak;
     const bonus = Math.min(streak, 5);
     score += bonus;
     btn.classList.add('correct');
-    showFeedback(streak >= 3 ? '🔥 連續 ' + streak + ' 題！' : ['👍', '✨', '🎉', '💪'][Math.floor(Math.random() * 4)]);
+    if (streak >= 5) showFeedback('🔥🔥 超強！');
+    else if (streak >= 3) showFeedback('🔥 連續 ' + streak + ' 題！');
+    else showFeedback(randItem(['👍', '✨', '🎉', '💪', '👏']));
   } else {
     streak = 0;
     btn.classList.add('wrong');
-    // 顯示正確答案
     document.querySelectorAll('.ans-btn').forEach(b => {
-      if (parseInt(b.textContent) === currentAnswer) b.classList.add('correct');
+      if (parseInt(b.textContent.replace(/,/g, '')) === currentAnswer) b.classList.add('correct');
     });
     showFeedback('❌');
   }
@@ -300,7 +422,7 @@ function checkAnswer(btn, selected) {
   setTimeout(() => {
     canAnswer = true;
     generateQuestion();
-  }, selected === currentAnswer ? 400 : 800);
+  }, selected === currentAnswer ? 400 : 1000);
 }
 
 function showFeedback(text) {
@@ -327,8 +449,18 @@ function updateStreak() {
   }
 }
 
+function updateTimerBar() {
+  const pct = (timer / maxTime) * 100;
+  const bar = document.getElementById('timerBar');
+  bar.style.width = pct + '%';
+  bar.classList.remove('warning', 'danger');
+  if (pct <= 20) bar.classList.add('danger');
+  else if (pct <= 40) bar.classList.add('warning');
+}
+
 function startGame() {
-  score = 0; total = 0; correct = 0; streak = 0; timer = 60;
+  score = 0; total = 0; correct = 0; streak = 0; maxStreak = 0;
+  timer = maxTime;
   canAnswer = true;
   updateStats();
   updateStreak();
@@ -337,6 +469,7 @@ function startGame() {
   document.getElementById('resultScreen').style.display = 'none';
   document.getElementById('questionCard').style.display = '';
   document.getElementById('answers').style.display = '';
+  document.getElementById('timerBarWrap').style.display = '';
 
   generateQuestion();
 
@@ -344,6 +477,7 @@ function startGame() {
   interval = setInterval(() => {
     timer--;
     document.getElementById('timerDisplay').textContent = timer;
+    updateTimerBar();
     if (timer <= 0) {
       clearInterval(interval);
       endGame();
@@ -355,14 +489,25 @@ function endGame() {
   canAnswer = false;
   document.getElementById('questionCard').style.display = 'none';
   document.getElementById('answers').style.display = 'none';
+  document.getElementById('timerBarWrap').style.display = 'none';
 
   const pct = total > 0 ? Math.round(correct / total * 100) : 0;
   const starCount = pct >= 90 ? 3 : pct >= 70 ? 2 : pct >= 50 ? 1 : 0;
 
+  const levelNames = { g3: '三年級', g4: '四年級', g5: '五年級', g6: '六年級' };
+
   document.getElementById('stars').textContent = '⭐'.repeat(starCount) + '☆'.repeat(3 - starCount);
   document.getElementById('finalScore').textContent = score + ' 分';
   document.getElementById('resultDetail').innerHTML =
-    `答對 <b>${correct}</b> / ${total} 題<br>正確率 <b>${pct}%</b><br>難度：${LEVELS[level].label}`;
+    `答對 <b>${correct}</b> / ${total} 題<br>正確率 <b>${pct}%</b><br>最高連續答對 <b>${maxStreak}</b> 題<br>難度：${levelNames[level]}`;
+
+  const isNew = setRecord(level, score);
+  const recordEl = document.getElementById('recordMsg');
+  if (isNew) {
+    recordEl.textContent = '🏆 新紀錄！';
+  } else {
+    recordEl.textContent = '最高紀錄：' + getRecord(level) + ' 分';
+  }
 
   document.getElementById('resultScreen').style.display = '';
 }
